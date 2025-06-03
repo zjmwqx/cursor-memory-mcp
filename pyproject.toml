@@ -4,9 +4,6 @@ version = "0.1.1"
 description = "Cursor项目记忆文件创建器 - MCP服务，用于在当前项目的.cursor/目录下自动创建.mdc文件"
 readme = "README.md"
 requires-python = ">=3.10"
-authors = [
-    {name = "zjmwqx", email = "zjmaspire@gmail.com"},
-]
 keywords = ["mcp", "cursor", "memory", "ai", "development"]
 classifiers = [
     "Development Status :: 4 - Beta",
