@@ -54,7 +54,7 @@ include = [
     "/README.md",
     "/LICENSE",
 ]
-username
+
 [tool.black]
 line-length = 88
 target-version = ['py310']
