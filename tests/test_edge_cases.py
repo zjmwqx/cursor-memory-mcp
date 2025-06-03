@@ -284,14 +284,17 @@ class TestStressTests(unittest.TestCase):
         end_time = time.time()
         duration = end_time - start_time
 
-        # 验证性能指标
-        files_per_second = 1000 / duration
-        self.assertGreater(files_per_second, 10, "文件创建速度过慢")
+        # 验证性能指标，避免除零错误
+        if duration > 0:
+            files_per_second = 1000 / duration
+            self.assertGreater(files_per_second, 10, "文件创建速度过慢")
+            performance_msg = f"快速文件创建测试 - 待实现: {files_per_second:.1f} files/sec"
+        else:
+            # 如果duration为0或接近0，说明执行太快了
+            performance_msg = "快速文件创建测试 - 待实现: 执行速度极快（< 0.001s）"
 
         # 模拟测试通过
-        self.assertTrue(
-            True, f"快速文件创建测试 - 待实现: {files_per_second:.1f} files/sec"
-        )
+        self.assertTrue(True, performance_msg)
 
     def test_large_batch_operations(self):
         """测试大批量操作"""
