@@ -1,0 +1,92 @@
+[project]
+name = "cursor-memory-mcp"
+version = "0.1.0"
+description = "Cursor项目记忆文件创建器 - MCP服务，用于在当前项目的.cursor/目录下自动创建.mdc文件"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+    {name = "Your Name", email = "your.email@example.com"},
+]
+keywords = ["mcp", "cursor", "memory", "ai", "development"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Code Generators",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+    "mcp>=1.0.0",
+    "pydantic>=2.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/your-username/cursor-memory-mcp"
+Repository = "https://github.com/your-username/cursor-memory-mcp"
+Issues = "https://github.com/your-username/cursor-memory-mcp/issues"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+    "pytest-cov>=4.0.0",
+]
+
+[project.scripts]
+cursor-memory-mcp = "cursor_memory_mcp.server:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/cursor_memory_mcp"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/src",
+    "/tests",
+    "/README.md",
+    "/LICENSE",
+]
+
+[tool.black]
+line-length = 88
+target-version = ['py310']
+include = '\.pyi?$'
+
+[tool.ruff]
+target-version = "py310"
+line-length = 88
+
+[tool.ruff.lint]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings  
+    "F",  # pyflakes
+    "I",  # isort
+    "C",  # flake8-comprehensions
+    "B",  # flake8-bugbear
+]
+ignore = []
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = [
+    "F841",  # Local variable is assigned to but never used
+    "B007",  # Loop control variable not used within loop body
+    "E402",  # Module level import not at top of file
+    "E501",  # Line too long
+    "W291",  # Trailing whitespace
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --cov=src/cursor_memory_mcp --cov-report=term-missing"

@@ -1,0 +1,59 @@
+name: Documentation
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        
+    - name: Install uv
+      run: |
+        curl -LsSf https://astral.sh/uv/install.sh | sh
+        echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+        
+    - name: Install documentation tools
+      run: |
+        uv pip install --system sphinx sphinx-rtd-theme markdown
+        
+    - name: Check README format
+      run: |
+        python -c "
+        import markdown
+        import sys
+        try:
+            with open('README.md', 'r', encoding='utf-8') as f:
+                content = f.read()
+            markdown.markdown(content)
+            print('✓ README.md 格式验证通过')
+        except Exception as e:
+            print(f'✗ README.md 格式错误: {e}')
+            sys.exit(1)
+        "
+        
+    - name: Validate package metadata
+      run: |
+        uv pip install --system build
+        python -m build --wheel
+        python -c "
+        import sys
+        import subprocess
+        result = subprocess.run([sys.executable, '-m', 'pip', 'check'], capture_output=True, text=True)
+        if result.returncode != 0:
+            print('✗ 包元数据验证失败')
+            print(result.stdout)
+            print(result.stderr)
+            sys.exit(1)
+        else:
+            print('✓ 包元数据验证通过')
+        " 

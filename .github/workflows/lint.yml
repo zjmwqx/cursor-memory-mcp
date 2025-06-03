@@ -1,0 +1,54 @@
+name: Code Quality
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+    types: [opened, synchronize, reopened]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        
+    - name: Install uv
+      run: |
+        curl -LsSf https://astral.sh/uv/install.sh | sh
+        echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+        
+    - name: Install dependencies
+      run: |
+        uv pip install --system black ruff mypy bandit safety
+        uv pip install --system -e ".[dev]"
+        
+    - name: Check code formatting with Black
+      run: |
+        black --check src/ tests/ --diff
+        
+    - name: Check code with Ruff
+      run: |
+        ruff check src/ tests/
+        
+    - name: Security check with bandit
+      run: |
+        bandit -r src/ -f json -o bandit-report.json || true
+        
+    - name: Check dependencies for security vulnerabilities
+      run: |
+        safety check --json --output safety-report.json || true
+        
+    - name: Upload security reports
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: security-reports
+        path: |
+          bandit-report.json
+          safety-report.json 

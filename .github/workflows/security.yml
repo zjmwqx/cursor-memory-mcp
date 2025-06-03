@@ -1,0 +1,80 @@
+name: Security
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  schedule:
+    # 每周运行一次安全扫描
+    - cron: '0 2 * * 1'
+
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        
+    - name: Install uv
+      run: |
+        curl -LsSf https://astral.sh/uv/install.sh | sh
+        echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+        
+    - name: Install security tools
+      run: |
+        uv pip install --system bandit safety pip-audit
+        uv pip install --system -e ".[dev]"
+        
+    - name: Run Bandit Security Linter
+      run: |
+        bandit -r src/ -f json -o bandit-report.json
+      continue-on-error: true
+        
+    - name: Run Safety Check
+      run: |
+        safety check --json --output safety-report.json
+      continue-on-error: true
+        
+    - name: Run pip-audit
+      run: |
+        pip-audit --desc --output=json --format=json > pip-audit-report.json
+      continue-on-error: true
+        
+    - name: Upload Security Reports
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: security-reports-${{ github.sha }}
+        path: |
+          bandit-report.json
+          safety-report.json
+          pip-audit-report.json
+          
+  codeql:
+    name: CodeQL Analysis
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v3
+      with:
+        languages: python
+
+    - name: Autobuild
+      uses: github/codeql-action/autobuild@v3
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v3 
