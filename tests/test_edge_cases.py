@@ -288,7 +288,9 @@ class TestStressTests(unittest.TestCase):
         if duration > 0:
             files_per_second = 1000 / duration
             self.assertGreater(files_per_second, 10, "文件创建速度过慢")
-            performance_msg = f"快速文件创建测试 - 待实现: {files_per_second:.1f} files/sec"
+            performance_msg = (
+                f"快速文件创建测试 - 待实现: {files_per_second:.1f} files/sec"
+            )
         else:
             # 如果duration为0或接近0，说明执行太快了
             performance_msg = "快速文件创建测试 - 待实现: 执行速度极快（< 0.001s）"

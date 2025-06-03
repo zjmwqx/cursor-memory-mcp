@@ -34,6 +34,7 @@ class CreateMemoryRequest(BaseModel):
     task_name: str = Field(
         ..., description="当前任务的简短名称，用作文件名", min_length=1, max_length=50
     )
+    project_path: str = Field(..., description="当前项目的绝对路径")
     task_description: Optional[str] = Field(None, description="任务的详细描述")
 
     @field_validator("task_name")
@@ -49,6 +50,20 @@ class CreateMemoryRequest(BaseModel):
         if not v or not v.strip():
             raise ValueError("task_summary不能为空字符串")
         return v.strip()
+
+    @field_validator("project_path")
+    def validate_project_path(cls, v):
+        """验证项目路径是否存在"""
+        if not v or not v.strip():
+            raise ValueError("project_path不能为空")
+
+        path = Path(v.strip())
+        if not path.exists():
+            raise ValueError(f"项目路径不存在: {v}")
+        if not path.is_dir():
+            raise ValueError(f"项目路径必须是一个目录: {v}")
+
+        return str(path.resolve())
 
 
 class CursorMemoryMCP:
@@ -83,12 +98,16 @@ class CursorMemoryMCP:
                                 "maxLength": 50,
                                 "pattern": "^[a-zA-Z0-9_-]+$",
                             },
+                            "project_path": {
+                                "type": "string",
+                                "description": "当前项目的绝对路径",
+                            },
                             "task_description": {
                                 "type": "string",
                                 "description": "任务的详细描述（可选）",
                             },
                         },
-                        "required": ["task_summary", "task_name"],
+                        "required": ["task_summary", "task_name", "project_path"],
                     },
                 )
             ]
@@ -115,8 +134,8 @@ class CursorMemoryMCP:
             if not request.task_description:
                 request.task_description = request.task_name
 
-            # 获取项目根目录
-            project_root = Path.cwd()
+            # 使用传入的项目路径而不是当前工作目录
+            project_root = Path(request.project_path)
             cursor_dir = project_root / ".cursor" / "rules"
 
             # 确保.cursor/rules目录存在
@@ -169,7 +188,7 @@ class CursorMemoryMCP:
                 response = {
                     "success": True,
                     "message": "成功创建记忆文件",
-                    "file_path": str(file_path.relative_to(project_root)),
+                    "file_path": str(file_path),
                     "created_at": datetime.now().isoformat(),
                 }
 

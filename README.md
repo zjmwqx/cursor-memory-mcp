@@ -31,6 +31,17 @@ uv tool install cursor-memory-mcp
 # Update PATH to use the tool
 uv tool update-shell
 ```
+step1 . cursor settings --> MCP --> add configuration (reffered later)
+
+step2 . cursor settings --> RULES --> add user rule:
+
+```
+After task execution is completed, use `cursor memory` to track task execution records
+```
+
+step3 . call agent to help you with coding
+
+when you dev step by step, proj rules will record cursor operation history, and when cursor need them, it will reffer it and do your job with memory.
 
 ### Installing for Development
 
