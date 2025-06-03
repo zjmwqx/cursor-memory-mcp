@@ -5,7 +5,7 @@ description = "Cursor项目记忆文件创建器 - MCP服务，用于在当前�
 readme = "README.md"
 requires-python = ">=3.10"
 authors = [
-    {name = "Your Name", email = "your.email@example.com"},
+    {name = "zjmwqx", email = "zjmaspire@gmail.com"},
 ]
 keywords = ["mcp", "cursor", "memory", "ai", "development"]
 classifiers = [
@@ -24,9 +24,9 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/your-username/cursor-memory-mcp"
-Repository = "https://github.com/your-username/cursor-memory-mcp"
-Issues = "https://github.com/your-username/cursor-memory-mcp/issues"
+Homepage = "https://github.com/zjmwqx/cursor-memory-mcp"
+Repository = "https://github.com/zjmwqx/cursor-memory-mcp"
+Issues = "https://github.com/zjmwqx/cursor-memory-mcp/issues"
 
 [project.optional-dependencies]
 dev = [
@@ -54,7 +54,7 @@ include = [
     "/README.md",
     "/LICENSE",
 ]
-
+username
 [tool.black]
 line-length = 88
 target-version = ['py310']
