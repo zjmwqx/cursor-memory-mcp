@@ -62,3 +62,6 @@ jobs:
     - name: Publish to PyPI
       if: github.event.inputs.test_pypi != 'true'
       uses: pypa/gh-action-pypi-publish@release/v1 
+      with:
+        username: __token__
+        password: ${{ secrets.PYPI_TOKEN }}
