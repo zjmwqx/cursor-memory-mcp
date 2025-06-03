@@ -1,6 +1,6 @@
 [project]
 name = "cursor-memory-mcp"
-version = "0.1.0"
+version = "0.1.1"
 description = "Cursor项目记忆文件创建器 - MCP服务，用于在当前项目的.cursor/目录下自动创建.mdc文件"
 readme = "README.md"
 requires-python = ">=3.10"

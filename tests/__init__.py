@@ -12,5 +12,5 @@ Cursor Memory MCP Server 测试包
     python run_tests.py --full
 """
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 __author__ = "Cursor Memory MCP Team"

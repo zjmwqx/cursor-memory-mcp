@@ -256,7 +256,7 @@ class TestMCPServerIntegration(unittest.TestCase):
         # 期望的服务器信息
         expected_server_info = {
             "name": "cursor-memory-mcp",
-            "version": "0.1.0",
+            "version": "0.1.1",
             "description": "Cursor项目记忆文件创建器",
             "tools": [
                 {
