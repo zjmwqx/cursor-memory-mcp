@@ -7,7 +7,7 @@
 
 The Cursor Memory MCP Server provides a bridge between AI assistants and Cursor's project memory system through the Model Context Protocol (MCP). It allows AI models to automatically create and manage `.mdc` memory files in your project's `.cursor/rules/` directory.
 
-![Project Screenshot](images/demo.png)
+![Project Screenshot](images/screenshot.png)
 
 ## ✨ Core Features
 
