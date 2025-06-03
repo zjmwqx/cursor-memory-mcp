@@ -144,6 +144,7 @@ result = await call_tool("create_cursor_memory", {
 | `task_summary` | string | ✅ | 详细的任务执行上下文总结 |
 | `task_name` | string | ✅ | 简短的任务名称（用作文件名） |
 | `task_description` | string | ⚪ | 可选的详细任务描述 |
+| `project_path` | string | ✅ | 当前项目的绝对路径 |
 
 **Validation Rules:**
 
@@ -163,16 +164,6 @@ alwaysApply: false
 ---
 {task_summary}
 ```
-
-## ⚙️ Configuration
-
-Configure through environment variables or command-line arguments:
-
-| Variable | Purpose | Default |
-|----------|---------|---------|
-| `CURSOR_MEMORY_DEBUG` | Enable debug logging | `false` |
-| `CURSOR_MEMORY_RULES_DIR` | Custom rules directory | `.cursor/rules` |
-
 
 ## 🤝 Contributing
 
