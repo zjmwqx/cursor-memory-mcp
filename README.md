@@ -1,7 +1,7 @@
 # Cursor Memory MCP
 [![Python Version](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![smithery badge](https://smithery.ai/badge/cursor-memory-mcp)](https://smithery.ai/server/cursor-memory-mcp)
+[![smithery badge](https://smithery.ai/badge/@zjmwqx/cursor-memory-mcp)](https://smithery.ai/server/@zjmwqx/cursor-memory-mcp)
 
 > 🧠 Enable AI assistants to create and manage project memory files in Cursor through a simple MCP interface.
 
@@ -20,6 +20,14 @@ The Cursor Memory MCP Server provides a bridge between AI assistants and Cursor'
 * ⚡ **MCP standard protocol**: Built on the Model Context Protocol for seamless AI integration
 
 ## 🚀 Quick Start
+
+### Installing via Smithery
+
+To install Cursor Memory MCP for Cursor's MCP client automatically via [Smithery](https://smithery.ai/server/cursor-memory-mcp):
+
+```bash
+npx -y @smithery/cli install cursor-memory-mcp --client cursor
+```
 
 ### Installing via pip
 
