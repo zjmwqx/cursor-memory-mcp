@@ -1,7 +1,7 @@
 # Cursor Memory MCP
 [![Python Version](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![smithery badge](https://smithery.ai/badge/@zjmwqx/cursor-memory-mcp)](https://smithery.ai/server/@zjmwqx/cursor-memory-mcp)
+[![LightNow capabilities](https://lightnow.ai/badge/io.github.zjmwqx/cursor-memory-mcp)](https://lightnow.ai/servers/io.github.zjmwqx/cursor-memory-mcp)
 
 > 🧠 Enable AI assistants to create and manage project memory files in Cursor through a simple MCP interface.
 
